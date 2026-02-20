@@ -62,7 +62,7 @@ env:
 jobs:
   meta:
     name: resolve build metadata
-    runs-on: blacksmith-8vcpu-ubuntu-2404
+    runs-on: self-hosted
     timeout-minutes: 25
 
     outputs:
@@ -102,7 +102,7 @@ jobs:
     name: build fluxer server
     needs: meta
     if: needs.meta.outputs.build_server == 'true'
-    runs-on: blacksmith-8vcpu-ubuntu-2404
+    runs-on: self-hosted
     timeout-minutes: 25
 
     outputs:
@@ -184,7 +184,7 @@ jobs:
       always() &&
       needs.meta.outputs.version != '' &&
       (needs.build-server.result == 'success' || needs.build-server.result == 'skipped')
-    runs-on: blacksmith-8vcpu-ubuntu-2404
+    runs-on: self-hosted
     timeout-minutes: 25
     steps:
       - name: checkout
@@ -250,7 +250,7 @@ jobs:
     name: release summary
     needs: [meta, build-server]
     if: always()
-    runs-on: blacksmith-8vcpu-ubuntu-2404
+    runs-on: self-hosted
     timeout-minutes: 25
 
     steps:
